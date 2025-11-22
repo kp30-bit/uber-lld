@@ -54,8 +54,8 @@ func (t *Trip) GetTripID() int {
 func (t *Trip) DisplayTripDetails() {
 	fmt.Println()
 	fmt.Printf("Trip id - %d\n", t.tripID)
-	fmt.Printf("Rider - %s\n", t.rider.GetRiderName())
-	fmt.Printf("Driver - %s\n", t.driver.GetDriverName())
+	fmt.Printf("Rider - %s\n", t.rider.GetName())
+	fmt.Printf("Driver - %s\n", t.driver.GetName())
 	fmt.Printf("Price - %.2f\n", t.price)
 	fmt.Printf("Locations - %.2f,%.2f and %.2f,%.2f\n",
 		t.srcLoc.Latitude, t.srcLoc.Longitude,

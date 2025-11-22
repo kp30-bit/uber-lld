@@ -2,6 +2,7 @@ package strategy
 
 import (
 	"fmt"
+
 	"github.com/kamalpratik/Uber-Ola-Low-Level-Design/internal/domain"
 	"github.com/kamalpratik/Uber-Ola-Low-Level-Design/pkg/interfaces"
 )
@@ -19,4 +20,3 @@ func (d *DefaultPricingStrategy) CalculatePrice(tripMetaData *domain.TripMetaDat
 	fmt.Println("Based on default strategy, price is 100")
 	return 100.0
 }
-

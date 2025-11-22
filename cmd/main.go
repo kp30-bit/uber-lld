@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+
 	"github.com/kamalpratik/Uber-Ola-Low-Level-Design/internal/domain"
 	"github.com/kamalpratik/Uber-Ola-Low-Level-Design/internal/manager"
 	"github.com/kamalpratik/Uber-Ola-Low-Level-Design/pkg/common"
@@ -9,14 +10,26 @@ import (
 
 func main() {
 	//---------------Creating Riders and Drivers--------------------------------
-	keertiRider := domain.NewRider("Keerti", common.FiveStars)
-	gauravRider := domain.NewRider("Gaurav", common.FiveStars)
+	// ------------------- traditional way without factory ----------------------
+	// keertiRider := domain.NewRider("Keerti", common.FiveStars)
+	// gauravRider := domain.NewRider("Gaurav", common.FiveStars)
+
+	// yogitaDriver := domain.NewDriver("Yogita", common.ThreeStars)
+	// riddhiDriver := domain.NewDriver("Riddhi", common.FourStars)
+
+	//creating riders and drivers using factory pattern
+
+	// Create riders using factory - no need to specify Rider type explicitly
+	keertiRider := domain.CreateRider(domain.UserTypeRider, "Keerti", common.FiveStars)
+	gauravRider := domain.CreateRider(domain.UserTypeRider, "Gaurav", common.FiveStars)
+
 	riderMgr := manager.GetRiderMgr()
 	riderMgr.AddRider("keerti", keertiRider)
 	riderMgr.AddRider("gaurav", gauravRider)
 
-	yogitaDriver := domain.NewDriver("Yogita", common.ThreeStars)
-	riddhiDriver := domain.NewDriver("Riddhi", common.FourStars)
+	yogitaDriver := domain.CreateDriver(domain.UserTypeDriver, "Yogita", common.ThreeStars)
+	riddhiDriver := domain.CreateDriver(domain.UserTypeDriver, "Riddhi", common.FourStars)
+
 	driverMgr := manager.GetDriverMgr()
 	driverMgr.AddDriver("yogita", yogitaDriver)
 	driverMgr.AddDriver("riddhi", riddhiDriver)
@@ -40,4 +53,3 @@ func main() {
 		trip.DisplayTripDetails()
 	}
 }
-

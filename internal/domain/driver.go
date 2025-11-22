@@ -24,7 +24,7 @@ func (d *Driver) UpdateAvail(avail bool) {
 }
 
 // GetDriverName returns the driver's name
-func (d *Driver) GetDriverName() string {
+func (d *Driver) GetName() string {
 	return d.name
 }
 
@@ -32,4 +32,3 @@ func (d *Driver) GetDriverName() string {
 func (d *Driver) GetRating() common.Rating {
 	return d.rating
 }
-

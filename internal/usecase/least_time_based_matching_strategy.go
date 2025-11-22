@@ -2,6 +2,7 @@ package strategy
 
 import (
 	"fmt"
+
 	"github.com/kamalpratik/Uber-Ola-Low-Level-Design/internal/domain"
 	"github.com/kamalpratik/Uber-Ola-Low-Level-Design/pkg/interfaces"
 )
@@ -28,7 +29,7 @@ func (l *LeastTimeBasedMatchingStrategy) MatchDriver(tripMetaData *domain.TripMe
 	}
 
 	fmt.Println("Using quadtree to see nearest cabs, using driver manager to get details of drivers and send notifications")
-	
+
 	// Get the first driver from the map (here we can call quadtree algo to get nearest cabs)
 	var driver *domain.Driver
 	for _, d := range driversMap {
@@ -36,8 +37,7 @@ func (l *LeastTimeBasedMatchingStrategy) MatchDriver(tripMetaData *domain.TripMe
 		break
 	}
 
-	fmt.Printf("Setting %s as driver\n", driver.GetDriverName())
+	fmt.Printf("Setting %s as driver\n", driver.GetName())
 	tripMetaData.SetDriverRating(driver.GetRating())
 	return driver
 }
-

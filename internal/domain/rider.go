@@ -17,7 +17,7 @@ func NewRider(name string, rating common.Rating) *Rider {
 }
 
 // GetRiderName returns the rider's name
-func (r *Rider) GetRiderName() string {
+func (r *Rider) GetName() string {
 	return r.name
 }
 
@@ -25,4 +25,3 @@ func (r *Rider) GetRiderName() string {
 func (r *Rider) GetRating() common.Rating {
 	return r.rating
 }
-
