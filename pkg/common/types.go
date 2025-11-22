@@ -1,5 +1,7 @@
 package common
 
+import "sync"
+
 // Rating represents the rating level
 type Rating int
 
@@ -25,11 +27,8 @@ const (
 	TripStatusEnded
 )
 
-// Util provides utility functions
-type Util struct{}
-
 // RatingToString converts a Rating to its string representation
-func (u *Util) RatingToString(rating Rating) string {
+func RatingToString(rating Rating) string {
 	switch rating {
 	case OneStar:
 		return "one star"
@@ -47,10 +46,19 @@ func (u *Util) RatingToString(rating Rating) string {
 }
 
 // IsHighRating checks if a rating is high (4 or 5 stars)
-func (u *Util) IsHighRating(rating Rating) bool {
+func IsHighRating(rating Rating) bool {
 	return rating == FourStars || rating == FiveStars
 }
 
-// NextTripID is a package-level variable for generating trip IDs
-var NextTripID = 1
+var (
+	nextTripID  int = 0
+	tripIDMutex sync.Mutex
+)
 
+// GetNextTripID returns the next trip ID in a thread-safe manner
+func GetNextTripID() int {
+	tripIDMutex.Lock()
+	defer tripIDMutex.Unlock()
+	nextTripID++
+	return nextTripID
+}

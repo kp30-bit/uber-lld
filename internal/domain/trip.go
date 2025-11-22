@@ -2,24 +2,25 @@ package domain
 
 import (
 	"fmt"
+
 	"github.com/kamalpratik/Uber-Ola-Low-Level-Design/pkg/common"
 )
 
 // Trip represents a trip in the system
 type Trip struct {
-	rider                 *Rider
-	driver                *Driver
-	srcLoc                *Location
-	dstLoc                *Location
-	status                common.TripStatus
-	tripID                int
-	price                 float64
-	pricingStrategy       interface{} // Stored but not used, kept for compatibility with C++ design
+	rider                  *Rider
+	driver                 *Driver
+	srcLoc                 *Location
+	dstLoc                 *Location
+	status                 common.TripStatus
+	tripID                 int
+	price                  float64
+	pricingStrategy        interface{} // Stored but not used, kept for compatibility with C++ design
 	driverMatchingStrategy interface{} // Stored but not used, kept for compatibility with C++ design
 }
 
 // NewTrip creates a new Trip instance
-// This is not threadsafe for tripId generation and is just for demo purposes
+// Thread-safe trip ID generation using mutex
 func NewTrip(
 	rider *Rider,
 	driver *Driver,
@@ -29,18 +30,17 @@ func NewTrip(
 	pricingStrategy interface{},
 	driverMatchingStrategy interface{},
 ) *Trip {
-	tripID := common.NextTripID
-	common.NextTripID++
+	tripID := common.GetNextTripID()
 
 	return &Trip{
-		rider:                 rider,
-		driver:                driver,
-		srcLoc:                srcLoc,
-		dstLoc:                dstLoc,
-		status:                common.TripStatusDriverOnTheWay,
-		tripID:                tripID,
-		price:                 price,
-		pricingStrategy:       pricingStrategy,
+		rider:                  rider,
+		driver:                 driver,
+		srcLoc:                 srcLoc,
+		dstLoc:                 dstLoc,
+		status:                 common.TripStatusDriverOnTheWay,
+		tripID:                 tripID,
+		price:                  price,
+		pricingStrategy:        pricingStrategy,
 		driverMatchingStrategy: driverMatchingStrategy,
 	}
 }
@@ -61,4 +61,3 @@ func (t *Trip) DisplayTripDetails() {
 		t.srcLoc.Latitude, t.srcLoc.Longitude,
 		t.dstLoc.Latitude, t.dstLoc.Longitude)
 }
-
